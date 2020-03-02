@@ -1,0 +1,24 @@
+CREATE TABLE cliente (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(80) NOT NULL,
+    lastname VARCHAR(35)
+)  ENGINE=INNODB; 
+
+insert into cliente  values (1,'Asdrubal','Sauro');
+insert into cliente  values (2,'Jose','Sauro');
+insert into cliente  values (3,'Donald','Trump');
+insert into cliente  values (4,'Bill','Gates');
+insert into cliente  values (5,'Steve','Jobs');
+insert into cliente  values (6,'Linus','Torvalds');
+
+DELIMITER $$
+create function fn_getNome(idparametro int)
+returns varchar(80)
+begin
+	declare nomeparametro varchar(80);
+    select nome into nomeparametro from cliente where id = idparametro;
+    return nomeparametro;
+END$$
+DELIMITER ;
+#função que retorna o nome do cliente
+select fn_getNome (id) from cliente;
