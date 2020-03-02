@@ -1,0 +1,91 @@
+CREATE TABLE cliente (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(80) NOT NULL,
+    lastname VARCHAR(35)
+)  ENGINE=INNODB; 
+
+/*
+@autor: Rogério André Queke Jnior
+@data de Criação: 02/03/2020
+@Data da Última atualização: 02/03/2020
+* Criação da tabela cliente
+*/
+
+insert into cliente  values (1,'Asdrubal','Sauro');
+insert into cliente  values (2,'Jose','Sauro');
+insert into cliente  values (3,'Donald','Trump');
+insert into cliente  values (4,'Bill','Gates');
+insert into cliente  values (5,'Steve','Jobs');
+insert into cliente  values (6,'Linus','Torvalds');
+
+DELIMITER $$
+create function fn_getNome(idparametro int)
+returns varchar(80)
+begin
+	declare nomeparametro varchar(80);
+SELECT 
+    nome
+INTO nomeparametro FROM
+    cliente
+WHERE
+    id = idparametro;
+    return nomeparametro;
+END$$
+DELIMITER ;
+select fn_getNome (id) from cliente;
+
+/*
+@autor: Rogério André Queke Jnior
+@data de Criação: 02/03/2020
+@Data da Última atualização: 02/03/2020
+*Função que retorna o nome do cliente
+*/
+
+DELIMITER $$
+create function fn_getLastname(idparametro int)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+returns varchar(80)
+begin
+	declare lastnameParametro varchar(80);
+	SELECT 
+    lastname
+INTO lastnameParametro FROM
+    cliente
+WHERE
+    id = idparametro;
+    return lastnameParametro;
+end$$
+delimiter ;
+select fn_getLastname (id) from cliente;
+
+/*
+@autor: Rogério André Queke Jnior
+@data de Criação: 02/03/2020
+@Data da Última atualização: 02/03/2020
+*Função que retorna o ultimo nome do cliente
+*/
+
+delimiter $$
+create function fn_getfullname ($id int)
+	returns varchar(115)
+begin
+	declare  fullname varchar(115);
+SELECT 
+    CONCAT(lastname, ',', nome)
+INTO fullname FROM
+    cliente
+WHERE
+    id = $id;
+    return fullname;
+end$$
+delimiter ;
+select fn_getfullname (id) from cliente;
+#
+
+/*
+@autor: Rogério André Queke Jnior
+@data de Criação: 02/03/2020
+@Data da Última atualização: 02/03/2020
+*Função que retorna o último nome e o nome do cliente separados por uma virgula
+*/
+
+
